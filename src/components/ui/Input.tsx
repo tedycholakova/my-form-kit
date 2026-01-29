@@ -1,20 +1,29 @@
+import React from "react";
+import { useId } from "react";
+
+
 export type InputProps = {
   label?: string;
   error?: string;
   className?: string;
+  id?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-export function Input({ label, error, className, ...props }: InputProps) {
+export function Input({ label, error, className, id, ...props }: InputProps) {
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
+
   return (
     <div className="flex flex-col gap-1 w-full">
       {label && (
-        <label className="text-sm font-medium text-black">{label}</label>
+        <label htmlFor={inputId} className="text-sm font-medium text-black">{label}</label>
       )}
       <input
+      id={inputId}
         {...props}
         className={`border px-3 py-2 rounded outline-none 
              
-            focus:blue-500 
+            focus:ring-blue-500 
             focus:border-blue-600
             dark:bg-gray-600 
             dark:border-gray-600
