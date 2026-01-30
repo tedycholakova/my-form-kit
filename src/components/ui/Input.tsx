@@ -29,7 +29,7 @@ export function Input({ label, error, className, id, ...props }: InputProps) {
             dark:border-gray-600
             ${className ?? ""}`}
       />
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-red-500 text-sm break-words max-w-full">{error}</p>}
     </div>
   );
 }
