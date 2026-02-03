@@ -2,19 +2,21 @@ import { useForm } from "react-hook-form";
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
 import { Checkbox } from "./ui/Checkbox";
+import { TextArea } from "./ui/Textarea";
 
 type RegistrationFormData = {
-    name: string;
-    familyName?: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    terms: boolean;
-}
+  name: string;
+  familyName?: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  address?: string;
+  terms: boolean;
+};
 
 export function RegistrationForm() {
   const formMethods = useForm<RegistrationFormData>({
-    mode: "onChange", 
+    mode: "onChange",
   });
 
   const register = formMethods.register;
@@ -27,7 +29,10 @@ export function RegistrationForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full max-w-md mx-auto">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-4 w-full max-w-md mx-auto"
+    >
       <Input
         label="Name"
         {...register("name", {
@@ -69,9 +74,18 @@ export function RegistrationForm() {
         })}
         error={errors.confirmPassword?.message}
       />
+      <TextArea
+        label="Address (optional)"
+        {...register("address", {
+          maxLength: { value: 200, message: "Maximum 200 characters" },
+        })}
+        error={errors.address?.message}
+      />
       <Checkbox
         label="Accept Terms and Conditions"
-        {...register("terms", { required: "You must accept the terms and Conditions" })}
+        {...register("terms", {
+          required: "You must accept the terms and Conditions",
+        })}
         error={errors.terms?.message}
       />
 
