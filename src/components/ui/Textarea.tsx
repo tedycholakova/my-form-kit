@@ -1,5 +1,5 @@
 import React from "react";
-import { useId } from "react";
+import { FormField } from "./FormField";
 
 type TextAreaProps = {
   label?: string;
@@ -8,15 +8,17 @@ type TextAreaProps = {
   id?: string;
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export function TextArea({ label, error, className, id, ...props }: TextAreaProps) {
-     const generatedId = useId();
-  const inputId = id ?? generatedId;
+export function TextArea({
+  label,
+  error,
+  className,
+  id,
+  ...props
+}: TextAreaProps) {
   return (
-    <div className="flex flex-col gap-1 w-full">
-      {label && <label htmlFor={inputId} className="text-sm font-medium text-black">{label}</label>}
-
+    <FormField label={label} error={error} id={id}>
       <textarea
-        id={inputId}
+        id={id}
         {...props}
         className="border px-3 py-2 rounded outline-none  
             focus:ring-blue-500 
@@ -24,8 +26,6 @@ export function TextArea({ label, error, className, id, ...props }: TextAreaProp
             dark:bg-gray-600 
             dark:border-gray-600"
       />
-
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-    </div>
+    </FormField>
   );
 }
