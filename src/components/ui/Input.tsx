@@ -1,6 +1,5 @@
 import React from "react";
-import { useId } from "react";
-
+import { FormField } from "./FormField";
 
 export type InputProps = {
   label?: string;
@@ -10,16 +9,10 @@ export type InputProps = {
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export function Input({ label, error, className, id, ...props }: InputProps) {
-  const generatedId = useId();
-  const inputId = id ?? generatedId;
-
   return (
-    <div className="flex flex-col gap-1 w-full">
-      {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-black">{label}</label>
-      )}
+    <FormField label={label} error={error} id={id}>
       <input
-      id={inputId}
+        id={id}
         {...props}
         className={`border px-3 py-2 rounded outline-none 
              
@@ -29,7 +22,6 @@ export function Input({ label, error, className, id, ...props }: InputProps) {
             dark:border-gray-600
             ${className ?? ""}`}
       />
-      {error && <p className="text-red-500 text-sm break-words max-w-full">{error}</p>}
-    </div>
+    </FormField>
   );
 }
